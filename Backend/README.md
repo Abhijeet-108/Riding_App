@@ -1,5 +1,5 @@
 
-# Users API Documentation
+# Backend API Documentation
 
 ## Endpoint: `/users/register`
 
