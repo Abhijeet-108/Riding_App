@@ -140,9 +140,131 @@ Content-Type: application/json
 - The `token` is valid for 1 hour and should be included in the `Authorization` header for protected routes.
 - Provide a valid and unique email for successful registration.
 
---- 
+---
 
 ### **Dependencies**:
 - **bcrypt**: For hashing passwords.
 - **jsonwebtoken**: For generating and managing tokens.
 - **express-validator**: For validating user input.
+
+## Endpoint: `/users/login`
+
+This endpoint allows users to log in by validating their email and password. Upon successful authentication, it returns a JWT token and user details.
+
+---
+
+### **Method**: POST
+
+---
+
+### **Request Body** (JSON):
+The following fields are required to log in:
+
+```json
+{
+  "email": "string, required, valid email format",
+  "password": "string, required, min 6 characters"
+}
+```
+
+---
+
+### **Response**:
+
+#### **Success Response**:
+**Status Code**: `200 OK`
+
+**Example**:
+```json
+{
+  "token": "string (JWT authentication token)",
+  "user": {
+    "_id": "string (User's unique ID)",
+    "fullname": {
+      "firstname": "string",
+      "lastname": "string"
+    },
+    "email": "string"
+  }
+}
+```
+
+---
+
+#### **Error Responses**:
+
+1. **Validation Errors**:
+   **Status Code**: `400 Bad Request`
+
+   **Example**:
+   ```json
+   {
+     "errors": [
+       {
+         "msg": "Invalid Email",
+         "param": "email",
+         "location": "body"
+       }
+     ]
+   }
+   ```
+
+2. **Invalid Credentials**:
+   **Status Code**: `401 Unauthorized`
+
+   **Example**:
+   ```json
+   {
+     "message": "Invalid Email or password"
+   }
+   ```
+
+---
+
+### **Validation Rules**:
+
+- **`email`**:
+  - Must be a valid email format.
+  - Cannot be empty.
+
+- **`password`**:
+  - Must be at least 6 characters long.
+  - Cannot be empty.
+
+---
+
+### **Usage Example**:
+
+#### Request:
+```bash
+POST /users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+#### Response:
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "_id": "63bf54e72f1d3c1e88a528e6",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com"
+  }
+}
+```
+
+---
+
+### **Notes**:
+
+- Ensure the provided email and password match an existing user's credentials.
+- The `token` is valid for 1 hour and should be included in the `Authorization` header for protected routes.
+
