@@ -263,6 +263,39 @@ Content-Type: application/json
 
 ---
 
+## Endpoint: `/users/logout`
+
+This endpoint logs out an authenticated user by clearing the token and blacklisting it.
+
+---
+
+### **Method**: GET
+
+---
+
+### **Headers**:
+- **Authorization**: `Bearer <token>` (or provide the token in a cookie named `token`).
+
+---
+
+### **Response**:
+
+#### **Success Response**:
+**Status Code**: `200 OK`
+
+**Example**:
+```json
+{
+  "message": "Logged Out"
+}
+```
+
+---
+
+### **Dependencies**:
+- **`blacklistToken.model.js`**: Handles token blacklisting with expiry set to 24 hours.
+
+
 ### **Notes**:
 
 - Ensure the provided email and password match an existing user's credentials.
