@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function Home() {
     return (
         <div>
-            <div className='bg-[url(https://plus.unsplash.com/premium_photo-1726743688205-ac8b03023306?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8dHJhbnNwb3J0YXRpb24lMjBjb25uZWN0aW9ufGVufDB8fDB8fHww)] h-screen pt-4 flex justify-between flex-col w-full bg-red-400'
+            <div className='bg-[url(https://plus.unsplash.com/premium_photo-1726743688205-ac8b03023306?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8dHJhbnNwb3J0YXRpb24lMjBjb25uZWN0aW9ufGVufDB8fDB8fHww)] h-screen pt-4 flex justify-between flex-col w-full'
             style={{
                 backgroundSize: 'cover',
                 backgroundPosition: 'center'
