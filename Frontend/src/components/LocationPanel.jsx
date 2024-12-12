@@ -21,7 +21,7 @@ function LocationPanel(props) {
                         props.setPanelOpen(false)
                     }}
                     className='flex items-center mb-2 gap-3 active:border-2 p-2 rounded-xl'>
-                    <h2 className='bg-[#eee]  flex items-center justify-center h-10 w-10 rounded-full'><i class="ri-map-pin-fill"></i></h2>
+                    <h2 className='bg-[#eee]  flex items-center justify-center h-10 w-10 rounded-full'><i className="ri-map-pin-fill"></i></h2>
                     <h4 className='font-medium text-gray-600'>{elem}  </h4>
                 </div>
                 })

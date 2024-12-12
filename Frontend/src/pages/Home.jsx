@@ -119,11 +119,11 @@ const Home = () => {
                     <form onSubmit={(e) => {
                         submitHandler()
                     }}>
-                        {/* <div>
+                        <div>
                             <div className='line absolute h-[10px] w-[10px]  top-[38%] left-[35px] bg-gray-600'></div>
                             <div className='line absolute h-[50px] w-1 top-[43%] left-[38px] bg-gray-600'></div>
                             <div className='line absolute h-[10px] w-[10px] top-[68%] left-[35px] bg-gray-600'></div>
-                        </div> */}
+                        </div>
                         <input
                         onClick={()=>{
                             setPanelOpen(true)
