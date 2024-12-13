@@ -11,13 +11,16 @@ function Riding() {
                 <img className='h-full w-full object-cover' src="https://datei.wiki/blog/wp-content/uploads/2020/10/schedule-uber-in-advance.01-5bfc595146e0fb002614ed1b.jpg" alt="" />
             </div>
             <div className='h-1/2 p-4'>
-                <div className='flex items-center justify-between'>
-                    <img className='h-12' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
+                <div className='flex items-center justify-between '>
+                    <div className=''>
+                        <img className='h-20' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
+                        <img className='h-20 absolute left-4 top-[55%] rounded-full' src="https://png.pngtree.com/png-vector/20230728/ourmid/pngtree-profile-picture-vector-png-image_6985292.png" alt="" />
+                    </div>
                     <div className='text-right'>
-                    <h2 className='text-lg font-medium capitalize'>Pramod</h2>
-                    <h4 className='text-xl font-semibold -mt-1 -mb-1'>Br 08 b 8956</h4>
-                    <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
-                    <h1 className='text-lg font-semibold'> 785963 </h1>
+                        <h2 className='text-lg font-medium capitalize'>Pramod</h2>
+                        <h4 className='text-xl font-semibold -mt-1 -mb-1'>Br 08 b 8956</h4>
+                        <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
+                        <h1 className='text-lg font-semibold'> 785963 </h1>
                     </div>
                 </div>
                 <div className='flex gap-2 justify-between flex-col items-center mt-3'>
@@ -41,7 +44,7 @@ function Riding() {
                         </div>
                     </div>
                 </div>
-                <button className='flex items-center justify-center h-12 rounded-xl w-full bg-green-600 text-white text-center mt-2'>Make a payment</button>
+                <button className='flex items-center justify-center h-12 rounded-xl w-full bg-green-600 text-white text-center mt-2 mb-3'>Make a payment</button>
             </div>
         </div>
     )
