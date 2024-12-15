@@ -23,9 +23,7 @@ router.get(
     [
         query('origin')
             .isString()
-            .isLength({min: 3})
-    ],
-    [
+            .isLength({min: 3}),
         query('destination')
             .isString()
             .isLength({min: 3})

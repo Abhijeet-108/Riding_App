@@ -24,32 +24,27 @@ module.exports.getAddressCoordinates = async (address) => {
     }
 };
 
-module.exports.getDistanceTime = async(origin, destination) =>{
-    if(!origin || !destination){
-        throw new Error('Origin and Destination are required')
+module.exports.getDistanceTime = async (origin, destination) => {
+    if (!origin || !destination) {
+        throw new Error('Origin and Destination are required');
     }
-
     const apiKey = process.env.GOOGLE_MAPS_API;
-    const url = `https://maps.gomaps.pro/maps/api/distancematrix/json?destinations=${encodeURIComponent(destination)}&origins=${encodeURIComponent(origin)}&key=${apiKey}`;
+    const url = `https://maps.gomaps.pro/maps/api/distancematrix/json?origins=${encodeURIComponent(origin)}&destinations=${encodeURIComponent(destination)}&key=${apiKey}`;
 
-    try{
-
+    try {
         const response = await axios.get(url);
 
-        if (response.data.status === 'OK' && response.data.results.length > 0) {
-            
-            if(response.data.rows[0].element[0].status === 'ZERO_RESULTS'){
-                throw new Error('NO routes Found');
+        if (response.data.status === 'OK' && response.data.rows.length > 0) {
+            const element = response.data.rows[0].elements[0];
+            if (element.status === 'ZERO_RESULTS') {
+                throw new Error('No routes found');
             }
-            
-            return response.data.rows[0].element[0];
-        }else{
+            return element; 
+        } else {
             throw new Error(`Error fetching coordinates: ${response.data.status}`);
         }
-
-    }catch (error) {
+    } catch (error) {
         console.error('Error occurred while fetching coordinates:', error.message || error);
-        throw error; 
+        throw error;
     }
-
 };
