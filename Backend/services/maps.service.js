@@ -48,3 +48,26 @@ module.exports.getDistanceTime = async (origin, destination) => {
         throw error;
     }
 };
+
+module.exports.getAutoCompleteSuggestions = async(input) => {
+    if (!input) {
+        throw new Error('input are required');
+    }
+    const apiKey = process.env.GOOGLE_MAPS_API;
+    const url = `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${apiKey}`;
+
+    try{
+        const response = await axios.get(url);
+
+        if (response.data.status === 'OK') {
+            const element = response.data.predictions;
+            
+            return element; 
+        } else {
+            throw new Error(`Error fetching prediction: ${response.data.status}`);
+        }
+    }catch(error){
+        console.error('Error occurred while fetching coordinates:', error.message || error);
+        throw error;
+    }
+}
