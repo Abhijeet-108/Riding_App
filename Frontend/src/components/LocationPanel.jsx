@@ -1,34 +1,35 @@
 import React from 'react'
 
-function LocationPanel(props) {
+function LocationPanel({ suggestions, setVehiclePanel, setPanelOpen, setPickup, setDestination, activeField }) {
 
-    const locations = [
-        'Mb-64 Near Alt healthy kitchen white building',
-        'The Alt healthy kitchen, Mahishbathan',
-        'Howrah railway station, Howrah',
-        'Techno main salt lake, sector V'
-    ]
+    const handleSuggestionClick = (suggestion) => {
+        if (activeField === 'pickup') {
+            setPickup(suggestion.description); 
+        } else if (activeField === 'destination') {
+            setDestination(suggestion.description); 
+        }
+        //setVehiclePanel(true);
+        //setPanelOpen(false);
+    };
 
     return (
-
-        <div className=''>
-            {
-                locations.map(function(elem, idx){
-                    return <div
-                    key={idx}
-                    onClick={()=>{
-                        props.setVehiclePanel(true)
-                        props.setPanelOpen(false)
-                    }}
-                    className='flex items-center mb-2 gap-3 active:border-2 p-2 rounded-xl'>
-                    <h2 className='bg-[#eee]  flex items-center justify-center h-10 w-10 rounded-full'><i className="ri-map-pin-fill"></i></h2>
-                    <h4 className='font-medium text-gray-600'>{elem}  </h4>
+        <div>
+            {/* Display fetched suggestions */}
+            {suggestions.map((elem, idx) => (
+                <div 
+                    key={elem.place_id || idx} 
+                    onClick={() => handleSuggestionClick(elem)}
+                    className='flex gap-4 border-2 p-3 border-gray-50 active:border-black rounded-xl items-center my-2 justify-start'
+                >
+                    <h2 className='bg-[#eee] h-8 flex items-center justify-center w-12 rounded-full'>
+                        <i className="ri-map-pin-fill"></i>
+                    </h2>
+                    <h4 className='font-medium'>{elem.description}</h4> {/* Access specific property */}
                 </div>
-                })
-            }
-            
+            ))}
         </div>
-    )
+    );
 }
+
 
 export default LocationPanel
