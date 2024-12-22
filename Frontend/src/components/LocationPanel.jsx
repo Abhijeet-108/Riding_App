@@ -24,7 +24,7 @@ function LocationPanel({ suggestions, setVehiclePanel, setPanelOpen, setPickup, 
                     <h2 className='bg-[#eee] h-8 flex items-center justify-center w-12 rounded-full'>
                         <i className="ri-map-pin-fill"></i>
                     </h2>
-                    <h4 className='font-medium'>{elem.description}</h4> {/* Access specific property */}
+                    <h4 className='font-medium'>{elem.description}</h4> 
                 </div>
             ))}
         </div>

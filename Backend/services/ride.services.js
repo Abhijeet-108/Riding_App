@@ -4,6 +4,9 @@ const crypto = require('crypto');
 
 async function getFare(pickup, destination) {
 
+    console.log("Pickup:", pickup);
+    console.log("Destination:", destination);
+
     if (!pickup || !destination) {
         throw new Error('Pickup and destination are required');
     }

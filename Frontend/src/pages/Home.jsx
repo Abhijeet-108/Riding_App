@@ -27,6 +27,9 @@ const Home = () => {
     const [pickupSuggestions, setPickupSuggestions] = useState([])
     const [destinationSuggestions, setDestinationSuggestions] = useState([])
     const [activeField, setActiveField] = useState(null)
+    const [ fare, setFare ] = useState({})
+    const [ vehicleType, setVehicleType ] = useState(null)
+    const [ ride, setRide ] = useState(null)
 
     const handlePickupChange = async(e) => {
         setPickup(e.target.value)
@@ -133,9 +136,32 @@ const Home = () => {
         }
     },[waitingForDriver])
 
-    function findTrip () {
+    async function findTrip () {
         setVehiclePanel(true)
         setPanelOpen(false)
+        
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/rides/get-fare`, {
+            params: { pickup, destination },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+
+        console.log(response.data) 
+        setFare(response.data)
+    }
+
+    async function createRide(){
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/create`, { 
+            pickup, 
+            destination ,
+            vehicleType
+        },{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        console.log(response.data)
     }
 
 
@@ -147,7 +173,7 @@ const Home = () => {
                 <img className='h-full w-full object-cover' src="https://datei.wiki/blog/wp-content/uploads/2020/10/schedule-uber-in-advance.01-5bfc595146e0fb002614ed1b.jpg" alt="" />
             </div>
             <div className='flex flex-col justify-end h-screen absolute top-0 w-full'>
-                <div className='h-[30%] bg-white p-5 relative'>
+                <div className='h-[35%] bg-white p-5 relative'>
                     <h5 ref={panelCloseRef} onClick={()=>{
                         setPanelOpen(false)
                     }} className='opacity-0 absolute top-0 left-0'>
@@ -157,11 +183,11 @@ const Home = () => {
                     <form onSubmit={(e) => {
                         submitHandler()
                     }}>
-                        <div>
+                        {/* <div>
                             <div className='line absolute h-[10px] w-[10px]  top-[38%] left-[35px] bg-gray-600'></div>
                             <div className='line absolute h-[50px] w-1 top-[43%] left-[38px] bg-gray-600'></div>
                             <div className='line absolute h-[10px] w-[10px] top-[68%] left-[35px] bg-gray-600'></div>
-                        </div>
+                        </div> */}
                         <input
                         onClick={()=>{
                             setPanelOpen(true)
@@ -203,10 +229,10 @@ const Home = () => {
                 </div>
             </div>
             <div ref={vehiclePanelRef} className='fixed  w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12'>
-                <VehiclePanel setConfirmedRidePanel={setConfirmedRidePanel}  setVehiclePanel={setVehiclePanel}/>
+                <VehiclePanel selectVehicle={setVehicleType} fare={fare} setConfirmedRidePanel={setConfirmedRidePanel}  setVehiclePanel={setVehiclePanel}/>
             </div >
             <div ref={confirmedRidePanelRef} className='fixed  w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12'>
-                <ConfirmedRide setConfirmedRidePanel={setConfirmedRidePanel} setVehicleFound={setVehicleFound}/>
+                <ConfirmedRide createRide={createRide} pickup={pickup} destination={destination} fare={fare} vehicleType={vehicleType} setConfirmedRidePanel={setConfirmedRidePanel} setVehicleFound={setVehicleFound}/>
             </div>
             <div ref={vehicleFoundRef} className='fixed  w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12'>
                 <LookingForDriver setVehicleFound={setVehicleFound} />
