@@ -9,7 +9,7 @@ function UserLogin() {
     const [password, setPassword] = useState('')
     const [userData, setUserData] = useState({})
 
-    const [ user, setUser ] = useContext(UserDataContext)
+    const { user, setUser } = useContext(UserDataContext)
     const navigate = useNavigate()
 
 

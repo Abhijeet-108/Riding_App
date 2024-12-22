@@ -1,18 +1,36 @@
 const rideService = require('../services/ride.services');
 const { validationResult } = require('express-validator');
+const mapService = require('../services/maps.service');
 
-module.exports.createRide = async(req, res) => {
+
+module.exports.createRide = async (req, res) => {
     const errors = validationResult(req);
-    if(!errors.isEmpty()){
+    if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { userId, pickup, destination, vehicleType } = req.body;
+    const { pickup, destination, vehicleType } = req.body;
 
-    try{
-        const ride = await rideService.createRide({user: req.user._id, pickup ,destination, vehicleType });
-        return res.status(201).json(ride);
-    }catch(err){
+    try {
+        const ride = await rideService.createRide({ user: req.user._id, pickup, destination, vehicleType });
+        
+        // Send response immediately
+        res.status(201).json(ride);
+
+        // Handle background tasks
+        (async () => {
+            try {
+                const pickupCoordinates = await mapService.getAddressCoordinates(pickup);
+                console.log('Pickup coordinates:', pickupCoordinates);
+                const captainsInRadius = await mapService.getCaptainInRadius(pickupCoordinates.ltd, pickupCoordinates.lng, 2);
+                console.log('Captains in radius:', captainsInRadius);
+            } catch (err) {
+                console.error('Background task error:', err.message);
+            }
+        })();
+
+    } catch (err) {
+        console.error("Error creating ride:", err.message);
         return res.status(500).json({ message: err.message });
     }
 };
