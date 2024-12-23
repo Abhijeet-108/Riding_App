@@ -1,21 +1,21 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react';
 import {useGSAP} from '@gsap/react';
 import gsap from 'gsap';
-import 'remixicon/fonts/remixicon.css'
-import { Link } from 'react-router-dom'
+import 'remixicon/fonts/remixicon.css';
+import { Link } from 'react-router-dom';
 import CaptainDetails from '../components/CaptainDetails'
-import RidePopUp from '../components/RidePopUp'
+import RidePopUp from '../components/RidePopUp';
 import ConfirmRidePopUp from '../components/ConfirmRidePopUp';
-import { useEffect, useContext } from 'react'
-import { SocketContext } from '../context/SocketContext'
+import { useEffect, useContext } from 'react';
+import { SocketContext } from '../context/SocketContext';
 import { CaptainDataContext } from '../context/CaptainContext';
-import axios from 'axios'
+import axios from 'axios';
 
 function CaptainHome() {
     const ridePopUpRef = useRef(null) 
     const confirmRidePopUpRef = useRef(null)
 
-    const [ridePopUp, setRidePopUp] = useState(true)
+    const [ridePopUp, setRidePopUp] = useState(false)
     const [confirmRidePopUp, setConfirmRidePopUp] = useState(false)
     const [ ride, setRide ] = useState(null)
 
@@ -55,6 +55,24 @@ function CaptainHome() {
 
     })
     
+    async function confirmRide() {
+
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/confirm`, {
+
+            rideId: ride._id,
+            captainId: captain._id,
+
+
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+
+        setRidePopUp(false)
+        setConfirmRidePopUp(true)
+
+    }
 
     useGSAP(function(){
         if(ridePopUp){
@@ -97,10 +115,16 @@ function CaptainHome() {
                 <CaptainDetails />
             </div>
             <div ref={ridePopUpRef} className='fixed  w-full z-10 bottom-0 translate-y-full  bg-white px-3 py-6 pt-12'>
-                <RidePopUp setRidePopUp={setRidePopUp} setConfirmRidePopUp={setConfirmRidePopUp} />
+                <RidePopUp 
+                ride={ride}
+                setRidePopUp={setRidePopUp} 
+                setConfirmRidePopUp={setConfirmRidePopUp} 
+                confirmRide={confirmRide}
+                />
             </div>
             <div ref={confirmRidePopUpRef} className='fixed h-screen  w-full z-10 bottom-0   bg-white px-3 py-6 pt-12'>
-                <ConfirmRidePopUp setConfirmRidePopUp={setConfirmRidePopUp} setRidePopUp={setRidePopUp} />
+                <ConfirmRidePopUp  
+                setConfirmRidePopUp={setConfirmRidePopUp} setRidePopUp={setRidePopUp} />
             </div>
 
         </div>
