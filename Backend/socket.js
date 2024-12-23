@@ -15,7 +15,6 @@ function initializeSocket(server) {
     io.on('connection', (socket) => {
         console.log(`Client connected: ${socket.id}`);
 
-
         socket.on('join', async (data) => {
             const { userId, userType } = data;
 
@@ -27,7 +26,6 @@ function initializeSocket(server) {
                 await captainModel.findByIdAndUpdate(userId, { socketId: socket.id });
             }
         });
-
 
         socket.on('update-location-captain', async (data) => {
             const { userId, location } = data;

@@ -1,6 +1,7 @@
 const rideService = require('../services/ride.services');
 const { validationResult } = require('express-validator');
 const mapService = require('../services/maps.service');
+const {sendMessageToSocketId} = require('../socket');
 
 
 module.exports.createRide = async (req, res) => {
@@ -24,11 +25,20 @@ module.exports.createRide = async (req, res) => {
                 console.log('Pickup coordinates:', pickupCoordinates);
                 const captainsInRadius = await mapService.getCaptainInRadius(pickupCoordinates.ltd, pickupCoordinates.lng, 2);
                 console.log('Captains in radius:', captainsInRadius);
+
+                ride.otp= ""
+
+                captainsInRadius.map(captain => {
+                    sendMessageToSocketId(captain.socketId, {
+                        event: 'new-ride',
+                        data: ride
+                    })
+                });
+                
             } catch (err) {
                 console.error('Background task error:', err.message);
             }
         })();
-
     } catch (err) {
         console.error("Error creating ride:", err.message);
         return res.status(500).json({ message: err.message });
@@ -50,4 +60,4 @@ module.exports.getFare = async(req, res) =>{
         console.error("Error fetching fare:", err.message); 
         return res.status(500).json({ message: err.message });
     }
-}
+};

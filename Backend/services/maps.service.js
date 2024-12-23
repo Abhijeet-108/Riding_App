@@ -11,14 +11,12 @@ module.exports.getAddressCoordinates = async (address) => {
         const response = await axios.get(url);
 
         if (response.data.status === 'OK' && response.data.results.length > 0) {
-            
             const location = response.data.results[0].geometry.location;
             return {
                 ltd: location.lat,
                 lng: location.lng
             };
         } else {
-            
             throw new Error(`Error fetching coordinates: ${response.data.status}`);
         }
     } catch (error) {
@@ -73,7 +71,7 @@ module.exports.getAutoCompleteSuggestions = async(input) => {
         console.error('Error occurred while fetching coordinates:', error.message || error);
         throw error;
     }
-}
+};
 
 module.exports.getCaptainInRadius = async(ltd, lng, radius) => {
     
@@ -86,4 +84,4 @@ module.exports.getCaptainInRadius = async(ltd, lng, radius) => {
     });
 
     return captains;
-}
+};
