@@ -22,7 +22,7 @@ function ConfirmRidePopUp(props) {
             <div className='flex items-center w-full justify-between rounded-xl bg-slate-200 p-1 mb-1'>
                 <div className='flex items-center justify-start gap-x-2'>
                     <img className='h-14 rounded-full' src="https://img.pikbest.com/png-images/20241202/boy-profile-photo-cartoon_11152300.png!f305cw" alt="" />
-                    <h2 className='font-medium'>Abhi Kumar</h2>
+                    <h2 className='font-medium'>{props.ride?.user.fullname.firstname + " " + props.ride?.user.fullname.lastname}</h2>
                 </div>
                 <div>
                     <p className='text-gray-500 text-sm'>2.5 km</p>
@@ -35,23 +35,23 @@ function ConfirmRidePopUp(props) {
                     <div className='flex items-center mb-4'>
                         <i className="ri-map-pin-range-fill"></i>
                         <div className='ml-4'>
-                            <h2 className='font-semibold text-xl'>MB-64, Mahishbathan</h2>
-                            <p className='text-sm text-gray-400'>The ALT healthy kitchen,Kolkata</p>
+                            <h2 className='font-semibold text-xl'>Pickup</h2>
+                            <p className='text-sm text-gray-400'>{props.ride?.pickup}</p>
                         </div>
                     </div>
                     <div className='w-full border-[0.5px] border-gray-400 absolute left-8'></div>
                     <div className='flex items-center mb-4 pt-4'>
                         <i className="ri-square-fill"></i>
                         <div className='ml-4'>
-                            <h2 className='font-semibold text-xl'>Howrah Railway Station</h2>
-                            <p className='text-sm text-gray-400'>Howrah, West Bengal</p>
+                            <h2 className='font-semibold text-xl'>Destination</h2>
+                            <p className='text-sm text-gray-400'>{props.ride?.destination}</p>
                         </div>
                     </div>
                     <div className='w-full border-[0.5px] border-gray-400 absolute left-8'></div>
                     <div className='flex items-center pt-4'>
                         <i className="ri-bank-card-fill"></i>
                         <div className='ml-4'>
-                            <h2 className='font-semibold text-xl'>₹ 192.20</h2>
+                            <h2 className='font-semibold text-xl'>₹ {props.ride?.fare}</h2>
                             <p className='text-sm text-gray-400'>cash</p>
                         </div>
                     </div>
