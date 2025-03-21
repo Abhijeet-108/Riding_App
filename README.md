@@ -79,7 +79,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you have any questions or want to get in touch, feel free to contact me:
 
 - **GitHub:** [Abhijeet-108](https://github.com/Abhijeet-108)
-- **Email:** [abhijeet@example.com](mailto:abhijeetofficial.034@gmail.com)
+- **Email:** [abhijeetofficial.034@gmail.com](mailto:abhijeetofficial.034@gmail.com)
 
 ---
 
